@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
+    tools:context=".ui.feature.auth.RegisterActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius"
+        app:cardElevation="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/CustomTextStyleHeadline.Rounded"
+                android:layout_height="46dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@string/text_create_account"
+                android:textColor="@color/dark_blue_100"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/small_margin"
+                android:autofillHints="username"
+                android:hint="@string/text_input_name"
+                android:textColorHint="@color/grey_60"
+                app:startIconDrawable="@drawable/icon_person"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtName"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/small_margin"
+                android:autofillHints="emailAddress"
+                android:hint="@string/text_input_your_mail"
+                android:textColorHint="@color/grey_60"
+                app:startIconDrawable="@drawable/icon_mail"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/small_margin"
+                android:autofillHints="password"
+                android:hint="@string/text_input_your_password"
+                android:textColorHint="@color/grey_60"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/grey_60"
+                app:startIconDrawable="@drawable/icon_lock"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                style="@style/CustomButtonStyle"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@string/text_login" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/divider_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/text_or"
+                    android:textColor="@color/grey_60" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/divider_color" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLoginWithGmail"
+                style="@style/CustomButtonStyle.Outlined"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginBottom="16dp"
+                android:padding="10dp"
+                android:text="@string/text_sign_up_with_gmail"
+                app:icon="@drawable/icon_gmail"
+                app:iconGravity="textStart"
+                app:iconPadding="10dp"
+                app:iconSize="25dp"
+                app:iconTint="@null" />
+        </LinearLayout>
+
+        <com.razzaghimahdi78.dotsloading.circle.LoadingCircleRotation
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            app:dots_color="@color/dark_blue_100"
+            app:dots_duration="800"
+            android:visibility="invisible"
+            app:dots_size="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="end"
+                android:text="@string/text_have_account"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtLogin"
+                style="@style/CustomTextStyleBody.Bold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:text="@string/text_login"
+                android:textColor="@color/dark_blue_100"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/grey_60"
+    tools:context=".ui.feature.task.AddOrUpdateTaskFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/white"
+        app:cardElevation="@dimen/corner_radius"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginVertical="@dimen/medium_margin"
+                android:layout_marginStart="@dimen/medium_margin"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTitleLayout"
+                style="@style/CustomTextStyleBody.Rounded"
+                android:layout_gravity="center"
+                android:text="@string/text_create_task"
+                android:textSize="@dimen/large_sp"
+                app:layout_constraintBottom_toBottomOf="@id/btnBack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/extra_small_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtTitleLayout"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_content_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutTop">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtTitleTask"
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/extra_large_margin"
+                android:text="@string/text_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlTitleTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/extra_small_margin"
+                android:autofillHints="text"
+                android:elevation="@dimen/corner_radius"
+                android:hint="@string/text_input_title_task"
+                android:textColorHint="@color/grey_60"
+                app:layout_constraintTop_toBottomOf="@id/txtTitleTask"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtTitleTask"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtSubjectTask"
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/text_subject"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edlTitleTask" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlSubjectTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/extra_small_margin"
+                android:autofillHints="text"
+                android:elevation="@dimen/corner_radius"
+                android:hint="@string/text_input_subject_task"
+                android:textColorHint="@color/grey_60"
+                app:layout_constraintTop_toBottomOf="@id/txtSubjectTask"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtSubjectTask"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtDescriptionTask"
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="@string/text_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edlSubjectTask" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlDescriptionTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/extra_small_margin"
+                android:autofillHints="text"
+                android:hint="@string/text_input_description_task"
+                android:textColorHint="@color/grey_60"
+                app:layout_constraintTop_toBottomOf="@id/txtDescriptionTask"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDescriptionTask"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/txtTimeTask"
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="@string/text_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edlDescriptionTask" />
+
+            <LinearLayout
+                android:id="@+id/linearLayoutTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txtTimeTask">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edlStartTimeTask"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/large_margin"
+                    android:layout_marginTop="@dimen/extra_small_margin"
+                    android:layout_weight="1"
+                    android:hint="@string/text_start"
+                    android:textColorHint="@color/grey_60"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescriptionTask"
+                    app:startIconTint="@color/grey_60">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownStartTime"
+                        style="@style/CustomEditTextStyle"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edlEndTimeTask"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/extra_small_margin"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:layout_weight="1"
+                    android:hint="@string/text_end"
+                    android:textColorHint="@color/grey_60"
+                    app:layout_constraintTop_toBottomOf="@id/txtDescriptionTask"
+                    app:startIconTint="@color/grey_60">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdownEndTime"
+                        style="@style/CustomEditTextStyle"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="text"
+                        tools:ignore="LabelFor" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtReminderTask"
+                style="@style/CustomTextStyleBody.Medium"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@string/text_reminder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linearLayoutTime" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/edlReminderTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="@dimen/extra_small_margin"
+                android:autofillHints="text"
+                android:elevation="@dimen/corner_radius"
+                android:hint="@string/text_input_subject_task"
+                android:textColorHint="@color/grey_60"
+                app:layout_constraintTop_toBottomOf="@id/txtReminderTask"
+                app:startIconTint="@color/grey_60">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtReminderTask"
+                    style="@style/CustomEditTextStyle"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                style="@style/CustomButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/large_margin"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:fontFamily="@font/sf_rounded"
+                android:padding="@dimen/medium_margin"
+                android:text="@string/text_create_task"
+                android:textSize="@dimen/medium_sp"
+                app:layout_constraintTop_toBottomOf="@id/edlReminderTask" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_path"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.am.schedulingapp.ui.feature.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_task"
+        android:name="com.am.schedulingapp.ui.feature.task.TaskFragment"
+        android:label="@string/title_task"
+        tools:layout="@layout/fragment_task" >
+        <action
+            android:id="@+id/action_navigation_task_to_addOrUpdateTaskFragment"
+            app:destination="@id/addOrUpdateTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_gallery"
+        android:name="com.am.schedulingapp.ui.feature.gallery.GalleryFragment"
+        android:label="@string/title_gallery"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.am.schedulingapp.ui.feature.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addOrUpdateTaskFragment"
+        android:name="com.am.schedulingapp.ui.feature.task.AddOrUpdateTaskFragment"
+        android:label="fragment_add_or_update_task"
+        tools:layout="@layout/fragment_add_or_update_task" />
+</navigation>

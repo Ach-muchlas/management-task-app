@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "686868262277",
+    "project_id": "schedulingapp-4e202",
+    "storage_bucket": "schedulingapp-4e202.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:686868262277:android:2807a816d537c2556d28ec",
+        "android_client_info": {
+          "package_name": "com.am.schedulingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "686868262277-3nkebkq3gltvlt9tr5n3lk391umpm8vf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.am.schedulingapp",
+            "certificate_hash": "7fc1f03fcc41783192e67cab3302c6a9ed72642e"
+          }
+        },
+        {
+          "client_id": "686868262277-l7tvh10hgmq66i3k7ff7casqro41q8sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-s0hKJyiYg5cOg8BcrulCTO4sPhzoqlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "686868262277-l7tvh10hgmq66i3k7ff7casqro41q8sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
