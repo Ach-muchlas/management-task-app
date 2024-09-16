@@ -9,6 +9,7 @@ import com.am.schedulingapp.databinding.ActivityLoginBinding
 import com.am.schedulingapp.service.source.Status
 import com.am.schedulingapp.ui.feature.main.MainActivity
 import com.am.schedulingapp.utils.Extension.goToActivity
+import com.am.schedulingapp.utils.HandlingUi
 import com.am.schedulingapp.utils.NotificationHandling.showErrorMessage
 import com.am.schedulingapp.utils.ProgressHandling.showProgressbar
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+        HandlingUi.setupDisableHintForField(binding.edlEmail, binding.edlPassword)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -80,7 +82,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        binding.btnLogin.setOnClickListener { setupLogin() }
+        binding.btnLogin.setOnClickListener {
+            HandlingUi.setupHideKeyboard(it)
+            setupLogin()
+        }
         binding.btnLoginWithGmail.setOnClickListener { setupSigInWithGoogle() }
         binding.txtRegister.setOnClickListener { goToActivity(RegisterActivity::class.java) }
     }

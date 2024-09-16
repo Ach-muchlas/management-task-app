@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="70dp"
     android:background="@drawable/background_gradient"
     tools:context=".ui.feature.task.TaskFragment">
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardTopLayout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="185dp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="@dimen/corner_radius"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,7 @@
                 style="@style/CustomTextStyleBody.Rounded"
                 android:layout_marginStart="@dimen/medium_margin"
                 android:layout_marginTop="@dimen/extra_small_margin"
-                android:textSize="@dimen/medium_sp"
+                android:textSize="@dimen/large_sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -36,6 +36,7 @@
                 android:id="@+id/txtTotalTask"
                 style="@style/CustomTextStyleBody.Rounded"
                 android:textColor="@color/grey_60"
+                android:textSize="@dimen/large_sp"
                 app:layout_constraintStart_toStartOf="@id/txtDate"
                 app:layout_constraintTop_toBottomOf="@id/txtDate"
                 tools:text="@tools:sample/date/mmddyy" />
@@ -57,14 +58,24 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTask"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardTopLayout"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_content_task" />
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/medium_margin"
-        android:layout_marginBottom="@dimen/medium_margin"
+        android:layout_marginBottom="@dimen/extra_small_margin"
         app:backgroundTint="@color/dark_blue_100"
-        app:elevation="@dimen/corner_radius"
+        android:elevation="@dimen/small_margin"
         app:icon="@drawable/icon_plus"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
