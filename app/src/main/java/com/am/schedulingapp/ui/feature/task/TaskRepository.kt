@@ -3,12 +3,13 @@ package com.am.schedulingapp.ui.feature.task
 import android.net.Uri
 import androidx.lifecycle.liveData
 import com.am.schedulingapp.data.model.Task
-import com.am.schedulingapp.data.model.TaskStatus
 import com.am.schedulingapp.service.source.Result
+import com.am.schedulingapp.utils.DateFormatter.isSameDay
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import java.util.Date
 import java.util.UUID
 
 class TaskRepository(
@@ -25,6 +26,23 @@ class TaskRepository(
             emit(Result.success(newTask))
         } catch (e: Exception) {
             emit(Result.error(null, e.message ?: "Failed to add task"))
+        }
+    }
+
+    fun uploadFileAndAddTask(task: Task, uri: Uri) = liveData(Dispatchers.IO) {
+        emit(Result.loading(null))
+        try {
+            val filename = "${UUID.randomUUID()}"
+            val ref = storage.reference.child("task_files/$filename")
+            val uploadTask = ref.putFile(uri).await()
+            val downloadUrl = uploadTask.storage.downloadUrl.await()
+
+            val newTask =
+                task.copy(id = tasksCollection.document().id, fileUrls = downloadUrl.toString())
+            tasksCollection.document(newTask.id).set(newTask).await()
+            emit(Result.success(newTask))
+        } catch (e: Exception) {
+            emit(Result.error(null, e.message ?: "Failed to upload file and add task"))
         }
     }
 
@@ -64,6 +82,22 @@ class TaskRepository(
         }
     }
 
+    fun getTaskByDate(selectDate : Date) = liveData(Dispatchers.IO)
+    {
+        emit(Result.loading(null))
+        try {
+            val snapshot = tasksCollection.get().await()
+            val tasks = snapshot.toObjects(Task::class.java)
+            val filteredTasks = tasks.filter { task ->
+                isSameDay(task.date, selectDate)
+            }
+            emit(Result.success(filteredTasks))
+        } catch (e: Exception) {
+            emit(Result.error(null, e.message ?: "Failed to get tasks"))
+        }
+    }
+
+
     fun deleteTask(taskId: String) = liveData(Dispatchers.IO) {
         emit(Result.loading(null))
         try {
@@ -74,43 +108,30 @@ class TaskRepository(
         }
     }
 
-    fun uploadFile(uri: Uri) = liveData(Dispatchers.IO) {
-        emit(Result.loading(null))
-        try {
-            val filename = "${UUID.randomUUID()}"
-            val ref = storage.reference.child("task_files/$filename")
-            val uploadTask = ref.putFile(uri).await()
-            val downloadUrl = uploadTask.storage.downloadUrl.await()
-            emit(Result.success(downloadUrl.toString()))
-        } catch (e: Exception) {
-            emit(Result.error(null, e.message ?: "Failed to upload file"))
-        }
-    }
-
-    fun updateTaskStatus(taskId: String, newStatus: TaskStatus) = liveData(Dispatchers.IO) {
-        emit(Result.loading(null))
-        try {
-            val taskRef = tasksCollection.document(taskId)
-            firestore.runTransaction { transaction ->
-                val snapshot = transaction.get(taskRef)
-                val task = snapshot.toObject(Task::class.java)
-                if (task != null) {
-                    val updatedTask =
-                        task.copy(status = newStatus, updatedAt = System.currentTimeMillis())
-                    transaction.set(taskRef, updatedTask)
-                    updatedTask
-                } else {
-                    throw Exception("Task not found")
-                }
-            }.await()
-            val updatedTask = taskRef.get().await().toObject(Task::class.java)
-            if (updatedTask != null) {
-                emit(Result.success(updatedTask))
-            } else {
-                emit(Result.error(null, "Task not found after update"))
-            }
-        } catch (e: Exception) {
-            emit(Result.error(null, e.message ?: "Failed to update task status"))
-        }
-    }
+//    fun updateTaskStatus(taskId: String, newStatus: TaskStatus) = liveData(Dispatchers.IO) {
+//        emit(Result.loading(null))
+//        try {
+//            val taskRef = tasksCollection.document(taskId)
+//            firestore.runTransaction { transaction ->
+//                val snapshot = transaction.get(taskRef)
+//                val task = snapshot.toObject(Task::class.java)
+//                if (task != null) {
+//                    val updatedTask =
+//                        task.copy(status = newStatus, updatedAt = System.currentTimeMillis())
+//                    transaction.set(taskRef, updatedTask)
+//                    updatedTask
+//                } else {
+//                    throw Exception("Task not found")
+//                }
+//            }.await()
+//            val updatedTask = taskRef.get().await().toObject(Task::class.java)
+//            if (updatedTask != null) {
+//                emit(Result.success(updatedTask))
+//            } else {
+//                emit(Result.error(null, "Task not found after update"))
+//            }
+//        } catch (e: Exception) {
+//            emit(Result.error(null, e.message ?: "Failed to update task status"))
+//        }
+//    }
 }

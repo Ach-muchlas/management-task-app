@@ -33,4 +33,7 @@
     <string name="text_start">Start</string>
     <string name="text_end">End</string>
     <string name="text_reminder">Reminder</string>
+    <string name="text_upload_file">Upload all file</string>
+    <string name="text_file">File</string>
+    <string name="text_status">Status</string>
 </resources>

@@ -76,4 +76,23 @@
         <item name="strokeWidth">2dp</item>
         <item name="android:textColor">@color/dark_blue_100</item>
     </style>
+
+    <style name="CustomTabLayoutStyle">
+        <item name="tabBackground">@drawable/custom_selector_tablayout</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabTextAppearance">@style/TextAppearanceTabLayout</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabMinWidth">50dp</item>
+        <item name="android:textAppearance">@font/sf_semi_bold</item>
+        <item name="tabIndicatorAnimationMode">elastic</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicator">@android:color/transparent</item>
+        <item name="tabRippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="TextAppearanceTabLayout" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/medium_sp</item>
+        <item name="fontFamily">@font/sf_semi_bold</item>
+    </style>
+
 </resources>

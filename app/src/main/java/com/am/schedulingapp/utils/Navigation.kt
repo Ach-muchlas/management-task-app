@@ -12,7 +12,10 @@ object Navigation {
     ) {
         navController.let {
             when (destination) {
-                Destination.TASK_TO_ADD_OR_UPDATE_TASK -> it.navigate(R.id.action_navigation_task_to_addOrUpdateTaskFragment)
+                Destination.TASK_TO_ADD_OR_UPDATE_TASK -> it.navigate(
+                    R.id.action_navigation_task_to_addOrUpdateTaskFragment,
+                    args
+                )
             }
         }
     }
