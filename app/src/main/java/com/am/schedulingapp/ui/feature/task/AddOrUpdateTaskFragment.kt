@@ -41,6 +41,7 @@ class AddOrUpdateTaskFragment : Fragment() {
     private var selectedFileUri: Uri? = null
     private var selectedDate: Date? = null
     private var selectedStatus: TaskStatus = TaskStatus.PENDING
+
     private val task: Task? by lazy { arguments?.getParcelable(TaskFragment.KEY_BUNDLE_ID) }
 
 
@@ -60,8 +61,8 @@ class AddOrUpdateTaskFragment : Fragment() {
 
     private fun setupNavigation() {
         binding.btnSave.setOnClickListener {
-            if (selectedFileUri != null) {
-                setupUploadFileAndAddTask(selectedFileUri!!)
+            if (task != null) {
+                updateTask()
             } else {
                 setupAddTask()
             }
@@ -99,17 +100,34 @@ class AddOrUpdateTaskFragment : Fragment() {
         setupDropdown(binding.dropdownEndTime, times) { time ->
             selectedEndTime = DateFormatter.parseTime(time)
         }
-        if (task != null) {
-            binding.edtTitleTask.setText(task?.title)
-            binding.edtSubjectTask.setText(task?.subject)
-            binding.edtDescriptionTask.setText(task?.description)
-            binding.edtReminderTask.setText(task?.reminder.toString())
-            binding.edtReminderTask.setText(task?.)
+        task?.let { existingTask ->
+            binding.edtTitleTask.setText(existingTask.title)
+            binding.edtSubjectTask.setText(existingTask.subject)
+            binding.edtDescriptionTask.setText(existingTask.description)
+            binding.edtReminderTask.setText(existingTask.reminder.toString())
+            selectedStartTime = existingTask.startTime
+            selectedEndTime = existingTask.endTime
+            selectedDate = existingTask.date
+            selectedStatus = existingTask.status
+            binding.dropdownStartTime.setText(DateFormatter.timeFormat.format(existingTask.startTime))
+            binding.dropdownEndTime.setText(DateFormatter.timeFormat.format(existingTask.endTime))
+            updateTabLayoutStatus(existingTask.status)
+        }
+
+    }
+
+    private fun updateTabLayoutStatus(status: TaskStatus) {
+        val tabLayout = binding.tlStatus
+        when (status) {
+            TaskStatus.PENDING -> tabLayout.getTabAt(0)?.select()
+            TaskStatus.ON_PROGRESS -> tabLayout.getTabAt(1)?.select()
+            TaskStatus.DONE -> tabLayout.getTabAt(2)?.select()
         }
     }
 
+
     private fun setupAddTask() {
-        viewModel.addTask(dataTask()).observe(viewLifecycleOwner) { result ->
+        viewModel.addTask(dataTask(), selectedFileUri).observe(viewLifecycleOwner) { result ->
             handleApiStatus(result, result.message.toString()) {
                 val addedTask = result.data
                 showSuccess(
@@ -121,15 +139,14 @@ class AddOrUpdateTaskFragment : Fragment() {
         }
     }
 
-    private fun setupUploadFileAndAddTask(uri: Uri) {
-        Log.e(TAG, selectedStatus.toString())
-        viewModel.uploadFileAndAddTask(dataTask(), uri)
+    private fun updateTask() {
+        viewModel.updateTask(dataTask(), selectedFileUri)
             .observe(viewLifecycleOwner) { result ->
                 handleApiStatus(result, result.message.toString()) {
                     val addedTask = result.data
                     showSuccess(
                         requireView(),
-                        "Task Added : ${addedTask?.title}"
+                        "Task Updated : ${addedTask?.title}"
                     )
                     findNavController().popBackStack()
                 }

@@ -1,5 +1,6 @@
 package com.am.schedulingapp.data.model
 
+import android.net.Uri
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.Date

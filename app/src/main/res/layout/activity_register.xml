@@ -129,7 +129,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLoginWithGmail"
+                android:id="@+id/btnSignUpWithGmail"
                 style="@style/CustomButtonStyle.Outlined"
                 android:layout_marginHorizontal="@dimen/large_margin"
                 android:layout_marginBottom="16dp"

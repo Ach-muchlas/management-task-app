@@ -86,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
             HandlingUi.setupHideKeyboard(it)
             setupLogin()
         }
-        binding.btnLoginWithGmail.setOnClickListener { setupSigInWithGoogle() }
+        binding.btnSignUpWithGmail.setOnClickListener { setupSigInWithGoogle() }
         binding.txtRegister.setOnClickListener { goToActivity(RegisterActivity::class.java) }
     }
 
