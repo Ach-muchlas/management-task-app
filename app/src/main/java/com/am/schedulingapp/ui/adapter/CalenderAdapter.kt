@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.am.schedulingapp.R
 import com.am.schedulingapp.databinding.ItemContentDateBinding
+import com.am.schedulingapp.utils.DateFormatter.isSameDay
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -45,14 +46,6 @@ class CalenderAdapter(private var onDateSelected: ((Date) -> Unit)? = null) :
         }
     }
 
-
-    private fun isSameDay(date1: Date, date2: Date): Boolean {
-        val cal1 = Calendar.getInstance().apply { time = date1 }
-        val cal2 = Calendar.getInstance().apply { time = date2 }
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)
-    }
-
     inner class ViewHolder(val binding: ItemContentDateBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
@@ -87,12 +80,15 @@ class CalenderAdapter(private var onDateSelected: ((Date) -> Unit)? = null) :
         updateDateAppearance(holder, position)
     }
 
-    private fun selectDate(position: Int) {
-        val previousSelected = selectedPosition
-        selectedPosition = position
-        notifyItemChanged(previousSelected)
-        notifyItemChanged(selectedPosition)
+    fun selectDate(position: Int) {
+        if (position in 0 until itemCount) {
+            val date = getItem(position)
+            selectedPosition = position
+            notifyDataSetChanged()
+            onDateSelected?.invoke(date)
+        }
     }
+
 
     private fun updateDateAppearance(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context

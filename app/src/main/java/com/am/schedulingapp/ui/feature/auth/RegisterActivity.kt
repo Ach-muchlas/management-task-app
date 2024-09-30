@@ -2,6 +2,7 @@ package com.am.schedulingapp.ui.feature.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.am.schedulingapp.R
 import com.am.schedulingapp.databinding.ActivityRegisterBinding
 import com.am.schedulingapp.service.source.Status
 import com.am.schedulingapp.ui.feature.main.MainActivity
@@ -18,12 +19,18 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupNavigation()
+        setupView()
     }
 
     private fun setupNavigation() {
         binding.btnRegister.setOnClickListener { setupRegister() }
-        binding.btnLoginWithGmail.setOnClickListener { }
+        binding.btnSignUpWithGmail.setOnClickListener { }
         binding.txtLogin.setOnClickListener { goToActivity(LoginActivity::class.java) }
+    }
+
+    private fun setupView() {
+        binding.btnRegister.text = getString(R.string.text_register)
+        binding.btnSignUpWithGmail.text = getString(R.string.text_sign_up_with_gmail)
     }
 
     private fun setupRegister() {

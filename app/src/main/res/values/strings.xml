@@ -36,4 +36,5 @@
     <string name="text_upload_file">Upload all file</string>
     <string name="text_file">File</string>
     <string name="text_status">Status</string>
+    <string name="task_is_pending">Tugas pending</string>
 </resources>

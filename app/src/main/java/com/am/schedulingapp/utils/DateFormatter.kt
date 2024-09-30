@@ -10,7 +10,7 @@ import java.util.Locale
 object DateFormatter {
     private val dateFormatWithTime = SimpleDateFormat("MMMM d, yyyy 'at' hh:mm:ss a 'UTC'X", Locale.getDefault())
     private val dateFormat = SimpleDateFormat("EEE MMMM yyyy", Locale.getDefault())
-    private val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     private val displayTimeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
 
 

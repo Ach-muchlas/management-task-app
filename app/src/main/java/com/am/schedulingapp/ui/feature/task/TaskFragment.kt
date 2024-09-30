@@ -13,12 +13,14 @@ import com.am.schedulingapp.databinding.FragmentTaskBinding
 import com.am.schedulingapp.service.source.Status
 import com.am.schedulingapp.ui.adapter.CalenderAdapter
 import com.am.schedulingapp.ui.adapter.TaskAdapter
+import com.am.schedulingapp.utils.DateFormatter.isSameDay
 import com.am.schedulingapp.utils.DateUtils.generateDatesForCurrentMonth
 import com.am.schedulingapp.utils.Destination
 import com.am.schedulingapp.utils.Navigation.navigateToFragment
 import com.am.schedulingapp.utils.NotificationHandling
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -26,7 +28,7 @@ class TaskFragment : Fragment() {
     private var _binding: FragmentTaskBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TaskViewModel by inject()
-    private var selectedDate: Date? = null
+    private var selectedDate: Date = Calendar.getInstance().time
 
     private val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
     private val monthFormat = SimpleDateFormat("MMMM", Locale.getDefault())
@@ -36,25 +38,30 @@ class TaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTaskBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupNavigation()
         setupCalenderAdapter()
         setupGetData(selectedDate)
-        return binding.root
     }
 
     private fun setupGetData(selectedDate: Date?) {
         viewModel.getTaskByDate(selectedDate!!).observe(viewLifecycleOwner) { result ->
             when (result.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    // init shimmer loading
+                }
+
                 Status.SUCCESS -> {
                     setupDataAdapter(result.data)
-                    NotificationHandling.showSuccess(requireView(), result.message.toString())
-                    Log.e(TAG, " data : ${result.data}")
                 }
 
                 Status.ERROR -> {
                     NotificationHandling.showErrorMessage(requireView(), result.message.toString())
-                    Log.e(TAG, " data : ${result.message}")
+                    Log.e("Check", "error : $result.message")
                 }
             }
         }
@@ -104,7 +111,7 @@ class TaskFragment : Fragment() {
             callbackOnDateSelected { date ->
                 selectedDate = date
                 setupUpdateHeader(date)
-                NotificationHandling.showSuccess(requireView(), "data : $date")
+                setupGetData(selectedDate)
             }
             getSelectedDate()?.let { date ->
                 selectedDate = date
@@ -117,7 +124,17 @@ class TaskFragment : Fragment() {
             it.layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
+
+        val todayPosition = dates.indexOfFirst { isSameDay(it, Calendar.getInstance().time) }
+        if (todayPosition != -1) {
+            binding.rvDate.scrollToPosition(todayPosition)
+            calenderAdapter.selectDate(todayPosition)
+            setupUpdateHeader(selectedDate)
+            setupGetData(selectedDate)
+        }
+
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

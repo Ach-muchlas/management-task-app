@@ -232,7 +232,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtReminderTask"
                     style="@style/CustomEditTextStyle"
-                    android:inputType="date|number" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
